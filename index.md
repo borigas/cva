@@ -7,7 +7,7 @@
 #### Links
 - [Calendar](https://goo.gl/ZrG3cp)
 - [Playbook](https://goo.gl/5AjzWj)
-- (Stats)[https://goo.gl/wtEVPi]
+- [Stats](https://goo.gl/wtEVPi)
 - [Player Documents](https://goo.gl/gXzV6w)
 - [Coach Documents](https://goo.gl/YSust6)
 
