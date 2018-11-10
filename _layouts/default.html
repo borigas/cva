@@ -11,6 +11,20 @@
         gtag('js', new Date());
 
         gtag('config', '{{ site.google_analytics }}');
+        
+        document.addEventListener('DOMContentLoaded', function(){
+          let linksToMonitor = document.getElementsByTagName("a");
+
+          for(var i = 0; i < linksToMonitor.length;i++){
+            let currentLink = linksToMonitor[i];
+            currentLink.addEventListener("click", function(){
+              gtag('event', currentLink.innerText, {
+                'event_category': "Link",
+                'event_label': currentLink.href
+              });
+            });
+          }
+        });
       </script>
     {% endif %}
     
