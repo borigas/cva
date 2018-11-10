@@ -10,5 +10,5 @@
 - [Coach Documents](https://goo.gl/YSust6)
 
 #### 2017-2018
-- [Stats](https://goo.gl/iFYw82)
-- [Video](https://goo.gl/LAvkbE)
+- [2017-2018 Stats](https://goo.gl/iFYw82)
+- [2017-2018 Video](https://goo.gl/LAvkbE)
