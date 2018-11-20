@@ -9,6 +9,8 @@
 - [Player Documents](https://goo.gl/gXzV6w)
 - [Coach Documents](https://goo.gl/YSust6)
 
-#### 2017-2018
+#### History
+- [History](https://sites.google.com/a/cvak12.org/cvabasketball/)
+- [All Stats](https://docs.google.com/spreadsheets/d/1y02a3XJ_XdD_7Q3HO7DBa_3w2Z9RKQrdl2mdahDGCgA/edit?usp=sharing)
 - [2017-2018 Stats](https://goo.gl/iFYw82)
 - [2017-2018 Video](https://goo.gl/LAvkbE)
