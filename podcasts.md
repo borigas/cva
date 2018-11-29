@@ -1,7 +1,7 @@
 ---
 title: Podcasts
 ---
-## [Podcast Feed](https://cva.origas.org/podcast-feed)
+## Podcast Feed
 Add https://cva.origas.org/podcast-feed by URL to your podcast player
 
 [Instructions for most podcast players](https://medium.com/@joshmuccio/how-to-manually-add-a-rss-feed-to-your-podcast-app-on-desktop-ios-android-478d197a3770)
