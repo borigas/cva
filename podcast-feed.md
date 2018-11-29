@@ -18,6 +18,11 @@ layout: raw-html
         <itunes:image href="https://cva.origas.org/logo.jpg" />
         <itunes:category text="Sports &amp; Recreation"/>
         <itunes:explicit>no</itunes:explicit>
+        <image>
+            <title>CVA Basketball</title>
+            <url>https://cva.origas.org/logo.jpg</url>
+            <link>https://cva.origas.org</link>
+	    </image>
         
 {% for podcast in site.data.podcasts %}
         <item>
