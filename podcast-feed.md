@@ -33,7 +33,7 @@ layout: raw-html
             <itunes:image href="" />
             <enclosure url="{{ podcast.audio_file }}" length="{{ podcast.audio_file_length }}" type="{{ podcast.audio_file_duration }}"/>
             <itunes:duration>{{ podcast.audio_file_duration }}</itunes:duration>
-            <guid>{{ podcast.guid }}</guid>
+            <guid>{{ podcast.original_source }}</guid>
             <pubDate>{{ podcast.publish_date }}</pubDate>
         </item>
 {% endfor %}
