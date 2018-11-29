@@ -5,7 +5,7 @@
 #### Links
 - [Calendar](https://goo.gl/ZrG3cp)
 - [Game Schedule](https://www.frontierconference.org/g5-bin/client.cgi?cwellOnly=1&G5statusflag=view&schoolname=&school_id=2&G5button=13&G5genie=571&vw_schoolyear=1&vw_agl=578-2-529,578-2-507,578-2-3,)
-- [Video](games.md)
+- [Video](video.md)
 - [Stats](https://goo.gl/wtEVPi)
 - [Playbook](https://goo.gl/5AjzWj)
 - [Podcasts](podcasts.md)
