@@ -24,7 +24,6 @@ layout: raw-html
             <url>https://cva.origas.org/logo.jpg</url>
             <link>https://cva.origas.org</link>
 	    </image>
-{:/nomarkdown}
         
 {% for podcast in site.data.podcasts %}
         <item>
@@ -42,3 +41,5 @@ layout: raw-html
 
     </channel>
 </rss>
+
+{:/nomarkdown}
