@@ -1,7 +1,6 @@
 ---
 layout: raw-html
 ---
-{::nomarkdown}
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
@@ -19,17 +18,20 @@ layout: raw-html
         <itunes:image href="https://cva.origas.org/logo.jpg" />
         <itunes:category text="Sports &amp; Recreation"/>
         <itunes:explicit>no</itunes:explicit>
+        
+{% for podcast in site.data.podcasts %}
         <item>
-            <title>Player Episode - Defense</title>
-            <itunes:author>Hardwood Hustle</itunes:author>
+            <title>{{ podcast.title }}</title>
+            <itunes:author>{{ podcast.author }}</itunes:author>
             <itunes:subtitle></itunes:subtitle>
-            <itunes:summary>In this week&amp;#8217;s player episode co-host TJ Rosene is joined by his assistant coach and former college basketball player Graham Maxwell to discuss keys to becoming a great defender. They discuss defensive mindset, anticipation, having a willingness to fail. Share this episode with your teammates who you know are dedicated to improving themselves</itunes:summary>
+            <itunes:summary>{{ podcast.summary }}</itunes:summary>
             <itunes:image href="" />
-            <enclosure url="http://media.blubrry.com/hardwoodhustle/www.hardwoodhustle.com/podcast-files/HH_250_NBA.mp3" length="10644920" type="audio/mpeg"/>
-            <guid>http://hardwoodhustle.com/?p=918</guid>
-            <pubDate>Wed Nov 28 2018 18:01:11 GMT-0600 (Central Standard Time)</pubDate>
-            <itunes:duration>22:10</itunes:duration>
+            <enclosure url="{{ podcast.audio_file }}" length="{{ podcast.audio_file_length }}" type="{{ podcast.audio_file_duration }}"/>
+            <itunes:duration>{{ podcast.audio_file_duration }}</itunes:duration>
+            <guid>{{ podcast.guid }}</guid>
+            <pubDate>{{ podcast.publish_date }}</pubDate>
         </item>
+{% endfor %}
+
     </channel>
 </rss>
-{:/}
