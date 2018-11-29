@@ -8,6 +8,7 @@
 - [Video](games.md)
 - [Stats](https://goo.gl/wtEVPi)
 - [Playbook](https://goo.gl/5AjzWj)
+- [Podcasts](podcasts.md)
 - [Player Documents](https://goo.gl/gXzV6w)
 - [Coach Documents](https://goo.gl/YSust6)
 
