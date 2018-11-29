@@ -5,7 +5,6 @@ layout: raw-html
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
         <title>CVA Basketball</title>
-        <link>https://cva.origas.org</link>
         <language></language>
         <copyright></copyright>
         <itunes:subtitle></itunes:subtitle>
