@@ -28,6 +28,7 @@ layout: raw-html
 {% for podcast in site.data.podcasts %}
         <item>
             <title>{{ podcast.title }}</title>
+            <description>{{ podcast.summary }}</description>
             <itunes:author>{{ podcast.author }}</itunes:author>
             <itunes:subtitle></itunes:subtitle>
             <itunes:summary>{{ podcast.summary }}</itunes:summary>
