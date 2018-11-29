@@ -1,6 +1,7 @@
 ---
 layout: raw-html
 ---
+{::nomarkdown} 
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
@@ -23,6 +24,7 @@ layout: raw-html
             <url>https://cva.origas.org/logo.jpg</url>
             <link>https://cva.origas.org</link>
 	    </image>
+{:/nomarkdown}
         
 {% for podcast in site.data.podcasts %}
         <item>
