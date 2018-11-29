@@ -4,13 +4,13 @@ layout: raw-html
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
-        <title>CVA Basketball</title>
+        <title>CVA Boys Basketball</title>
         <link>https://cva.origas.org</link>
         <language></language>
         <copyright></copyright>
         <itunes:subtitle></itunes:subtitle>
         <itunes:author>Ben Origas</itunes:author>
-        <itunes:summary>CVA team podcast</itunes:summary>  
+        <itunes:summary>CVA Boys Basketball Team Podcast</itunes:summary>  
         <itunes:owner>
             <itunes:name>Ben Origas</itunes:name>
             <itunes:email>cvapodcast@benorigas.com</itunes:email>
