@@ -6,5 +6,7 @@ title: Video
 
 [Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=9515)
 
+[Dorchester](https://youtu.be/MXLH1R3kCRE?t=6567)
+
 ## JV
 [Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
