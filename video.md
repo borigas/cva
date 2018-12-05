@@ -8,5 +8,9 @@ title: Video
 
 [Dorchester](https://youtu.be/MXLH1R3kCRE?t=6567)
 
+[Cedar Bluffs](https://youtu.be/2LrolpXqiGY?t=9070)
+
 ## JV
 [Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
+
+[Cedar Bluffs](https://youtu.be/2LrolpXqiGY)
