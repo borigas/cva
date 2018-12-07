@@ -10,6 +10,8 @@ title: Video
 
 [Cedar Bluffs](https://youtu.be/2LrolpXqiGY?t=9070)
 
+[Lewiston](https://youtu.be/RxPYTkeDEbw?t=9702)
+
 ## JV
 [Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
