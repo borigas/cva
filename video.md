@@ -18,3 +18,5 @@ title: Video
 [Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
 [Cedar Bluffs](https://youtu.be/2LrolpXqiGY)
+
+[Lewiston](https://youtu.be/RxPYTkeDEbw?t=422)
