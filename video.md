@@ -15,8 +15,8 @@ title: Video
 [Elba](https://youtu.be/4K2E0EiELrQ?t=7337)
 
 ## JV
-[Omaha Christian](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
+[Omaha Christian JV](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
-[Cedar Bluffs](https://youtu.be/2LrolpXqiGY)
+[Cedar Bluffs JV](https://youtu.be/2LrolpXqiGY)
 
-[Lewiston](https://youtu.be/RxPYTkeDEbw?t=422)
+[Lewiston JV](https://youtu.be/RxPYTkeDEbw?t=422)
