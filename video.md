@@ -14,9 +14,13 @@ title: Video
 
 [Elba](https://youtu.be/4K2E0EiELrQ?t=7337)
 
+Parkview [1st Half](https://youtu.be/FwOHlK-6bpM?t=11811) [2nd Half](https://youtu.be/ROlao_JetYQ)
+
 ## JV
 [Omaha Christian JV](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
 [Cedar Bluffs JV](https://youtu.be/2LrolpXqiGY)
 
 [Lewiston JV](https://youtu.be/RxPYTkeDEbw?t=422)
+
+[Parkview JV](https://youtu.be/FwOHlK-6bpM?t=0)
