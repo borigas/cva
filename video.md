@@ -16,6 +16,8 @@ title: Video
 
 Parkview [1st Half](https://youtu.be/FwOHlK-6bpM?t=11811) [2nd Half](https://youtu.be/ROlao_JetYQ)
 
+[Weeping Water](https://youtu.be/t1Jwhg21I5Y?t=6344)
+
 ## JV
 [Omaha Christian JV](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
