@@ -18,6 +18,20 @@ Parkview [1st Half](https://youtu.be/FwOHlK-6bpM?t=11811) [2nd Half](https://you
 
 [Weeping Water](https://youtu.be/t1Jwhg21I5Y?t=6344)
 
+East Butler
+
+[Brownell Talbot](https://youtu.be/1IFw04Ye0dg?t=15278)
+
+[Hampton](https://youtu.be/vVbE09dgRFM?t=10731)
+
+[Whiting](https://youtu.be/cZ-EEhPPm8Q?t=7315)
+
+[Tri County](https://youtu.be/dNyUTgco2pQ?t=16715)
+
+[Nebraska Lutheran](https://youtu.be/L9kzEFvbPzM?t=9365)
+
+Cedar Bluffs
+
 ## JV
 [Omaha Christian JV](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
