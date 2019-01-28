@@ -32,6 +32,10 @@ East Butler
 
 Cedar Bluffs
 
+[Brownell Talbot](https://youtu.be/VonI6bCiz5c)
+
+[Parkview](https://youtu.be/5G5vxwb8rEU?t=6060)
+
 ## JV
 [Omaha Christian JV](https://www.youtube.com/watch?v=utIpvVrFD74&start=3730)
 
