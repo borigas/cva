@@ -30,7 +30,7 @@ East Butler
 
 [Nebraska Lutheran](https://youtu.be/L9kzEFvbPzM?t=9365)
 
-Cedar Bluffs
+[Cedar Bluffs](https://youtu.be/d0KhcjPuNXM)
 
 [Brownell Talbot](https://youtu.be/VonI6bCiz5c)
 
