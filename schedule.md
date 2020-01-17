@@ -74,7 +74,7 @@ layout: raw-html
                             <!-- /ko -->
                         </td>
                         <td>
-                            <a data-bind="text: opponent.name, attr: {href: opponent.teamUrl}"></a>
+                            <a data-bind="text: nameAndLocation, attr: {href: opponent.teamUrl}"></a>
                         </td>
                         <td data-bind="text: winText"></td>
                         <td data-bind="text: pointsScored"></td>
@@ -272,6 +272,10 @@ layout: raw-html
                 }else{
                     return "";
                 }
+            }
+
+            get nameAndLocation() {
+                return `${this.isHome ? "" : "@"} ${this.opponent.name}`;
             }
 
             async load(){
