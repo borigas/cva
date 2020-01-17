@@ -2,6 +2,7 @@
 layout: raw-html
 ---
 {::nomarkdown} 
+<?xml version="1.0" encoding="UTF-8"?>
 <html>
     <head>
         <title data-bind="text: name"></title>
@@ -10,7 +11,7 @@ layout: raw-html
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
         <script src="https:////cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></link>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
         <style>
             #schedule table {
                 text-align: left;
