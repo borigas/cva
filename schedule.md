@@ -1,8 +1,6 @@
 ---
 layout: raw-html
 ---
-{::nomarkdown} 
-<?xml version="1.0" encoding="UTF-8"?>
 <html>
     <head>
         <title data-bind="text: name"></title>
