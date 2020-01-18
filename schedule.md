@@ -1,14 +1,15 @@
 ---
 layout: raw-html
 ---
+<!doctype html>
 <html>
     <head>
         <title data-bind="text: name"></title>
-    </head>
-    <body>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
         <script src="https:////cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
         <style>
             #schedule table {
@@ -19,31 +20,54 @@ layout: raw-html
             }
             tr.odd-row {
             }
+            #summary > div {
+                display: flex;
+            }
+            #summary ul {
+                display: block;
+                list-style-type: none;
+            }
         </style>
+    </head>
+    <body>
         <div id="summary">
             <h2 data-bind="text: name"></h2>
-            <table>
-                <tr>
-                    <td>W-L:</td>
-                    <td data-bind="text: winLossRecord"></td>
-                </tr>
-                <tr>
-                    <td>Win %:</td>
-                    <td data-bind="text: winPercentage"></td>
-                </tr>
-                <tr>
-                    <td>National Rank:</td>
-                    <td data-bind="text: nationalRank"></td>
-                </tr>
-                <tr>
-                    <td>State Rank:</td>
-                    <td data-bind="text: stateRank"></td>
-                </tr>
-                <tr>
-                    <td>Class:</td>
-                    <td data-bind="text: stateClass"></td>
-                </tr>
-            </table>
+            <div>
+                <div>
+                    <table>
+                        <tr>
+                            <td>W-L:</td>
+                            <td data-bind="text: winLossRecord"></td>
+                        </tr>
+                        <tr>
+                            <td>Win %:</td>
+                            <td data-bind="text: winPercentage"></td>
+                        </tr>
+                        <tr>
+                            <td>National Rank:</td>
+                            <td data-bind="text: nationalRank"></td>
+                        </tr>
+                        <tr>
+                            <td>State Rank:</td>
+                            <td data-bind="text: stateRank"></td>
+                        </tr>
+                        <tr>
+                            <td>Class:</td>
+                            <td data-bind="text: stateClass"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <a data-bind="attr: {href: boysTeamUrl}, text: 'Boys'"></a>
+                        <li>
+                        </li>
+                            <a data-bind="attr: {href: girlsTeamUrl}, text: 'Girls'"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div id="schedule">
             <table>
@@ -145,7 +169,7 @@ layout: raw-html
             };
 
             async load(){
-                this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.sportId}/schedule.htm`;
+                this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
                 let response = await this.request({url: this.scheduleUrl});
                 await this.parse(response);
             }
@@ -184,11 +208,30 @@ layout: raw-html
 
                 this.stateRank = this.parseTextFromSelector("a[href$='state_rankings']");
 
-                this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.sportId}/stats.htm`;
+                this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
 
-                this.teamUrl = window.location.href.split("?")[0] + "?teamId=" + this.maxPrepsTeamId;
+                let urlSplit = window.location.href.split("?");
+                let noParamsUrl = urlSplit[0];
+                let params = urlSplit.length > 1 ? urlSplit[1] : "";
+
+                let urlSearch = new URLSearchParams(params);
+                urlSearch.set("teamId", this.maxPrepsTeamId);
                 if(this.season != null){
-                    this.teamUrl = this.teamUrl + `&season=${this.season}`;
+                    urlSearch.set("season", this.season);
+                }
+                this.teamUrl = noParamsUrl + "?" + urlSearch.toString();
+
+                let girlsSeasonStart = "girls-";
+                if(this.season.indexOf(girlsSeasonStart) >= 0){
+                    this.girlsTeamUrl = this.teamUrl;
+                    let boysSeason = this.season.substring(girlsSeasonStart.length);
+                    urlSearch.set("season", boysSeason);
+                    this.boysTeamUrl = noParamsUrl + "?" + urlSearch.toString();
+                }else{
+                    this.boysTeamUrl = this.teamUrl;
+                    let girlsSeason = girlsSeasonStart + this.season;
+                    urlSearch.set("season", girlsSeason);
+                    this.girlsTeamUrl = noParamsUrl + "?" + urlSearch.toString();
                 }
 
                 // this.games = [];
@@ -298,6 +341,14 @@ layout: raw-html
                 teamId = "college-view-academy-eagles-(lincoln,ne)";
             }
             let season = urlSearch.get("season");
+            if(season == null){
+                let date = new Date();
+                let year = date.getFullYear() - 2000;
+                if(date.getMonth() >= 6){
+                    year += 1;
+                }
+                season = `basketball-winter-${year-1}-${year}`;
+            }
             let team = new TeamInfo(teamId, season, true);
             await team.load();
             ko.applyBindings(team);
