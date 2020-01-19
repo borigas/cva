@@ -1,7 +1,6 @@
 ---
 layout: raw-html
 ---
-<!doctype html>
 <html>
     <head>
         <title data-bind="text: name"></title>
