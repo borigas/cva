@@ -126,6 +126,16 @@ layout: raw-html
             }
             games = [];
 
+            name = "Unknown";
+            stateClass = "";
+            winLossRecord = "";
+            nationalRank = "";
+            stateRank = "";
+            statsUrl = "";
+            teamUrl = "";
+            girlsTeamUrl = "";
+            boysTeamUrl = "";
+
             get winPercentage() {
                 let split = this.winLossRecord.split("-");
                 if(split.length == 2){
@@ -168,9 +178,16 @@ layout: raw-html
             };
 
             async load(){
-                this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
-                let response = await this.request({url: this.scheduleUrl});
-                await this.parse(response);
+                try
+                {
+                    this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
+                    let response = await this.request({url: this.scheduleUrl});
+                    await this.parse(response);
+                }
+                catch(e)
+                {
+                    console.error(e);
+                }
             }
 
             async parse(xml){
