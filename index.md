@@ -15,6 +15,7 @@
 #### History
 - [History](https://sites.google.com/a/cvak12.org/cvabasketball/)
 - [All Stats](https://docs.google.com/spreadsheets/d/1y02a3XJ_XdD_7Q3HO7DBa_3w2Z9RKQrdl2mdahDGCgA/edit?usp=sharing)
+- [2019-2020 Stats](http://bit.ly/1920CVAStats)
 - [2018-2019 Stats](https://goo.gl/wtEVPi)
 - [2017-2018 Stats](https://goo.gl/iFYw82)
 - [2017-2018 Video](https://goo.gl/LAvkbE)
