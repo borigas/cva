@@ -180,9 +180,13 @@ layout: raw-html
             async load(){
                 try
                 {
+                    this.homeUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/home.htm`;
                     this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
-                    let response = await this.request({url: this.scheduleUrl});
-                    await this.parse(response);
+                    let homePromise = await this.request({url: this.homeUrl});
+                    let schedulePromise = this.request({url: this.scheduleUrl});
+                    let homeResponse = await homePromise
+                    let scheduleResponse = await schedulePromise
+                    await this.parse(homeResponse, scheduleResponse);
                 }
                 catch(e)
                 {
@@ -190,13 +194,15 @@ layout: raw-html
                 }
             }
 
-            async parse(xml){
-                this.doc = xml;
+            async parse(homeXml, scheduleXml){
+                this.homeDoc = homeXml;
+                this.scheduleDoc = scheduleXml;
 
-                this.bodyElement = $(this.doc);
+                this.homeBodyElement = $(this.homeDoc);
+                this.scheduleBodyElement = $(this.scheduleDoc);
 
                 this.name = "Unknown";
-                let jsonTags = this.bodyElement.find("script[type='application/ld+json']");
+                let jsonTags = this.homeBodyElement.find("script[type='application/ld+json']");
                 if(jsonTags.length > 0){
                     let json = jsonTags[0].innerText;
                     let embeddedInfo = JSON.parse(json)
@@ -204,7 +210,7 @@ layout: raw-html
                 }
 
                 this.stateClass = "";
-                let districtLink = this.bodyElement.find("a[href^='/league']");
+                let districtLink = this.homeBodyElement.find("a[href^='/league']");
                 if(districtLink.length > 0){
                     let href = districtLink.attr("href");
                     let urlChunks = href.split("/");
@@ -218,11 +224,11 @@ layout: raw-html
                     }
                 }
 
-                this.winLossRecord = this.parseTextFromSelector("#ctl00_NavigationWithContentOverRelated_ContentOverRelated_PageHeaderUserControl_BottomRowOverallRecord > a");
+                this.winLossRecord = this.parseTextFromSelector(this.homeBodyElement, "#ctl00_NavigationWithContentOverRelated_ContentOverRelated_PageHeaderUserControl_BottomRowOverallRecord > a");
 
-                this.nationalRank = this.parseTextFromSelector("a[href$='national_rankings']");
+                this.nationalRank = this.parseTextFromSelector(this.homeBodyElement, "a[href$='national_rankings']");
 
-                this.stateRank = this.parseTextFromSelector("a[href$='state_rankings']");
+                this.stateRank = this.parseTextFromSelector(this.homeBodyElement, "a[href$='state_rankings']");
 
                 this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
 
@@ -252,14 +258,15 @@ layout: raw-html
 
                 // this.games = [];
                 if(this.loadScheduleTeamInfo){
-                    let scheduleElement = this.doc.getElementById("schedule");
-                    let scheduleRows = scheduleElement.getElementsByClassName("dual-contest");
+                    let scheduleElement = this.scheduleDoc.getElementsByTagName("tbody")[0];
+                    let scheduleRows = scheduleElement.getElementsByTagName("tr");
                     let loadingPromises = [];
                     for(var i = 0; i < scheduleRows.length; i++){
                         let loadingPromise = this.loadGame(scheduleRows[i], i);
                         loadingPromises.push(loadingPromise)
+                        await loadingPromise;
                     }
-                    await Promise.all(loadingPromises);
+                    // await Promise.all(loadingPromises);
                 }
             }
 
@@ -271,8 +278,8 @@ layout: raw-html
                 }
             }
 
-            parseTextFromSelector(selector){
-                let found = this.bodyElement.find(selector);
+            parseTextFromSelector(bodyElement, selector){
+                let found = bodyElement.find(selector);
                 if(found.length > 0){
                     return found[0].innerText;
                 }
@@ -293,35 +300,47 @@ layout: raw-html
                 this.gameLink = "";
                 this.hasBeenPlayed = false;
                 this.opponentId = null;
+                this.date = "";
 
-
-                this.date = this.parseTextFromFirstClassItem("event-date");
-                this.isHome = gameRow.getElementsByClassName("away-indicator").length == 0;
-                let gameElements = gameRow.getElementsByClassName("score");
-
-                if(gameElements.length > 0){
-                    let gameElement = gameElements[0];
-                    let scoreText = gameElement.innerText;
-                    this.isWin = scoreText.indexOf("W") >= 0;
-                    this.score = scoreText.substring(4);
-                    let scoreSplit = this.score.split("-");
-                    this.pointsScored = parseInt(this.isWin ? scoreSplit[0] : scoreSplit[1]);
-                    this.pointsAllowed = parseInt(this.isWin ? scoreSplit[1] : scoreSplit[0]);
-                    this.pointMargin = this.pointsScored - this.pointsAllowed;
-                    let rawGameLink = gameElement.getAttribute("href");
-                    this.gameLink = rawGameLink.replace("www.maxpreps.com", "preps.origas.org");
-                    this.hasBeenPlayed = true;
+                let gameCells = this.gameRow.getElementsByTagName("td");
+                if(gameCells.length < 4){
+                    return;
                 }
 
-                let opponentLinkElement = gameRow.getElementsByClassName("contest-type-indicator");
-                if(opponentLinkElement.length > 0){
-                    let link = opponentLinkElement[0].getAttribute("href");
+                let dateCell = gameCells[0];
+                let gameDateElements = dateCell.getElementsByTagName("div");
+                if(gameDateElements.length > 0){
+                    let dateText = gameDateElements[0].innerText;
+                    this.date = dateText.split(", ")[1];
+                }
+
+                let opponentCell = gameCells[2];
+                this.isHome = opponentCell.innerText.indexOf("Home") >= 0;
+                let opponentLinkElements = gameRow.getElementsByTagName("a");
+                if(opponentLinkElements.length > 0){
+                    let link = opponentLinkElements[0].getAttribute("href");
                     if(link != null){
                         let splitLink = link.split("/");
                         if(splitLink.length >= 3){
                             this.opponentId = splitLink[2];
                         }
                     }
+                }
+
+                let resultCell = gameCells[3];
+                var resultSpans = resultCell.getElementsByTagName("span");
+                if(resultSpans.length >= 2){
+                    this.isWin = resultSpans[0].innerText.indexOf("W") >= 0;
+                    this.score = resultSpans[1].innerText;
+                    let scoreSplit = this.score.split("-");
+                    this.pointsScored = parseInt(this.isWin ? scoreSplit[0] : scoreSplit[1]);
+                    this.pointsAllowed = parseInt(this.isWin ? scoreSplit[1] : scoreSplit[0]);
+                    this.pointMargin = this.pointsScored - this.pointsAllowed;
+                    var gameLinks = resultCell.getElementsByTagName("a");
+                    if(gameLinks.length > 0){
+                        this.gameLink = "https://preps.origas.org/" + gameLinks[0].getAttribute("href");
+                    }
+                    this.hasBeenPlayed = true;
                 }
             }
 
