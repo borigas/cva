@@ -181,12 +181,10 @@ layout: raw-html
                 try
                 {
                     this.homeUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/home.htm`;
-                    this.scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
                     let homePromise = await this.request({url: this.homeUrl});
-                    let schedulePromise = this.request({url: this.scheduleUrl});
-                    let homeResponse = await homePromise
-                    let scheduleResponse = await schedulePromise
-                    await this.parse(homeResponse, scheduleResponse);
+                    let homeResponse = await homePromise;
+
+                    await this.parse(homeResponse);
                 }
                 catch(e)
                 {
@@ -194,12 +192,9 @@ layout: raw-html
                 }
             }
 
-            async parse(homeXml, scheduleXml){
+            async parse(homeXml){
                 this.homeDoc = homeXml;
-                this.scheduleDoc = scheduleXml;
-
                 this.homeBodyElement = $(this.homeDoc);
-                this.scheduleBodyElement = $(this.scheduleDoc);
 
                 this.name = "Unknown";
                 let jsonTags = this.homeBodyElement.find("script[type='application/ld+json']");
@@ -257,7 +252,12 @@ layout: raw-html
                 }
 
                 if(this.loadScheduleTeamInfo){
-                    let scheduleElement = this.scheduleDoc.getElementsByTagName("tbody")[0];
+                    
+
+                    let scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
+                    let schedulePromise = this.request({url: scheduleUrl});
+                    let scheduleResponse = await schedulePromise;
+                    let scheduleElement = scheduleResponse.getElementsByTagName("tbody")[0];
                     let scheduleRows = scheduleElement.getElementsByTagName("tr");
                     let loadingPromises = [];
                     for(var i = 0; i < scheduleRows.length; i++){
