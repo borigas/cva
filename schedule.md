@@ -256,7 +256,6 @@ layout: raw-html
                     this.girlsTeamUrl = noParamsUrl + "?" + urlSearch.toString();
                 }
 
-                // this.games = [];
                 if(this.loadScheduleTeamInfo){
                     let scheduleElement = this.scheduleDoc.getElementsByTagName("tbody")[0];
                     let scheduleRows = scheduleElement.getElementsByTagName("tr");
@@ -264,9 +263,8 @@ layout: raw-html
                     for(var i = 0; i < scheduleRows.length; i++){
                         let loadingPromise = this.loadGame(scheduleRows[i], i);
                         loadingPromises.push(loadingPromise)
-                        await loadingPromise;
                     }
-                    // await Promise.all(loadingPromises);
+                    await Promise.all(loadingPromises);
                 }
             }
 
