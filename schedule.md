@@ -3,7 +3,7 @@ layout: raw-html
 ---
 <html>
     <head>
-        <title data-bind="text: name"></title>
+        <title>Schedule</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
@@ -51,7 +51,7 @@ layout: raw-html
                             <td data-bind="text: stateRank"></td>
                         </tr>
                         <tr>
-                            <td>Class:</td>
+                            <td>League:</td>
                             <td data-bind="text: stateClass"></td>
                         </tr>
                     </table>
@@ -380,6 +380,7 @@ layout: raw-html
                 stripeClasses: ['odd-row', 'even-row']
             });
             window.team = team;
+            document.title = team.name + " Schedule";
         });
     </script>
 </html>
