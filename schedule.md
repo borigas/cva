@@ -252,8 +252,6 @@ layout: raw-html
                 }
 
                 if(this.loadScheduleTeamInfo){
-                    
-
                     let scheduleUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
                     let schedulePromise = this.request({url: scheduleUrl});
                     let scheduleResponse = await schedulePromise;
@@ -320,7 +318,7 @@ layout: raw-html
                     if(link != null){
                         let splitLink = link.split("/");
                         if(splitLink.length >= 3){
-                            this.opponentId = splitLink[2];
+                            this.opponentId = splitLink[4];
                         }
                     }
                 }
