@@ -180,11 +180,11 @@ layout: raw-html
             async load(){
                 try
                 {
-                    this.homeUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/home.htm`;
-                    let homePromise = await this.request({url: this.homeUrl});
-                    let homeResponse = await homePromise;
+                    this.infoUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/info.htm`;
+                    let infoPromise = await this.request({url: this.infoUrl});
+                    let infoResponse = await infoPromise;
 
-                    await this.parse(homeResponse);
+                    await this.parse(infoResponse);
                 }
                 catch(e)
                 {
@@ -192,38 +192,28 @@ layout: raw-html
                 }
             }
 
-            async parse(homeXml){
-                this.homeDoc = homeXml;
-                this.homeBodyElement = $(this.homeDoc);
+            async parse(infoXml){
+                this.infoDoc = infoXml;
+                this.infoBodyElement = $(this.infoDoc);
 
                 this.name = "Unknown";
-                let jsonTags = this.homeBodyElement.find("script[type='application/ld+json']");
-                if(jsonTags.length > 0){
-                    let json = jsonTags[0].innerText;
-                    let embeddedInfo = JSON.parse(json)
-                    this.name = embeddedInfo.name.replace(" High", "").replace(" School", "");
+                let headers = this.infoDoc.getElementsByTagName("h1");
+                if(headers.length > 0){
+                    let headerText = headers[0].innerText;
+                    this.name = headerText.replace(" High", "").replace(" School", "").replace(" Basketball Team Info", "").replace(/[0-9]/g, "").trim();
                 }
 
                 this.stateClass = "";
-                let districtLink = this.homeBodyElement.find("a[href^='/league']");
-                if(districtLink.length > 0){
-                    let href = districtLink.attr("href");
-                    let urlChunks = href.split("/");
-                    let districtChunk = urlChunks[urlChunks.length - 1];
-                    let districtLinkSegments = districtChunk.split("-")
-                    if(districtLinkSegments.length >= 2){
-                        let possibleClassName = districtLinkSegments[1];
-                        if(possibleClassName.length == 2){
-                            this.stateClass = possibleClassName.toUpperCase();
-                        }
-                    }
+                var leagueElement = this.infoDoc.getElementById("ctl00_NavigationWithContentOverRelated_Content_dd_league");
+                if(leagueElement != null){
+                    this.stateClass = leagueElement.innerText;
                 }
 
-                this.winLossRecord = this.parseTextFromSelector(this.homeBodyElement, "#ctl00_NavigationWithContentOverRelated_ContentOverRelated_PageHeaderUserControl_BottomRowOverallRecord > a");
+                this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, "#ctl00_NavigationWithContentOverRelated_ContentOverRelated_PageHeaderUserControl_BottomRowOverallRecord > a");
 
-                this.nationalRank = this.parseTextFromSelector(this.homeBodyElement, "a[href$='national_rankings']");
+                this.nationalRank = this.parseTextFromSelector(this.infoBodyElement, "a[href$='national_rankings']");
 
-                this.stateRank = this.parseTextFromSelector(this.homeBodyElement, "a[href$='state_rankings']");
+                this.stateRank = this.parseTextFromSelector(this.infoBodyElement, "a[href$='state_rankings']");
 
                 this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
 
