@@ -51,6 +51,10 @@ layout: raw-html
                             <td data-bind="text: stateRank"></td>
                         </tr>
                         <tr>
+                            <td>Division Rank:</td>
+                            <td data-bind="text: divisionRank"></td>
+                        </tr>
+                        <tr>
                             <td>League:</td>
                             <td data-bind="text: stateClass"></td>
                         </tr>
@@ -83,6 +87,7 @@ layout: raw-html
                         <th>Win %</th>
                         <th>National Rank</th>
                         <th>State Rank</th>
+                        <th>Division Rank</th>
                         <th>Stats</th>
                     </tr>
                 </thead>
@@ -108,6 +113,7 @@ layout: raw-html
                         <td data-bind="text: opponent.winPercentage"></td>
                         <td data-bind="text: opponent.nationalRank"></td>
                         <td data-bind="text: opponent.stateRank"></td>
+                        <td data-bind="text: opponent.divisionRank"></td>
                         <td>
                             <a data-bind="text: 'Stats', attr: {href: opponent.statsUrl}"></a>
                         </td>
@@ -131,6 +137,7 @@ layout: raw-html
             winLossRecord = "";
             nationalRank = "";
             stateRank = "";
+            divisionRank = "";
             statsUrl = "";
             teamUrl = "";
             girlsTeamUrl = "";
@@ -200,20 +207,32 @@ layout: raw-html
                 let headers = this.infoDoc.getElementsByTagName("h1");
                 if(headers.length > 0){
                     let headerText = headers[0].innerText;
-                    this.name = headerText.replace(" High", "").replace(" School", "").replace(" Basketball Team Info", "").replace(/[0-9]/g, "").trim();
+                    this.name = headerText.replace(" High", "").replace(" School", "").replace(" Basketball", "").replace(" Boys", "").replace(" Basketball Team Info", "").replace(/[0-9]/g, "").trim();
                 }
 
                 this.stateClass = "";
-                var leagueElement = this.infoDoc.getElementById("ctl00_NavigationWithContentOverRelated_Content_dd_league");
-                if(leagueElement != null){
-                    this.stateClass = leagueElement.innerText;
+                let rankHeadings = this.infoBodyElement.find(".Anchor__StyledAnchor-sc-1fyvlgd-0.gMjAj");
+                if(rankHeadings.length == 3){
+                    this.stateClass = rankHeadings[1].innerText.replace(" Division", "");
                 }
 
-                this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, "#ctl00_NavigationWithContentOverRelated_ContentOverRelated_PageHeaderUserControl_BottomRowOverallRecord > a");
+                this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, ".Text__StyledText-jknly0-0.PiNEz")
 
-                this.nationalRank = this.parseTextFromSelector(this.infoBodyElement, "a[href$='national_rankings']");
+                let ranks = this.infoBodyElement.find(".Text__StyledText-jknly0-0.dAwCHf");
+                if(ranks.length > 1){
+                    this.stateRank = ranks[0].innerText.replace("#", "");
 
-                this.stateRank = this.parseTextFromSelector(this.infoBodyElement, "a[href$='state_rankings']");
+                    if(ranks.length > 2){
+                        this.nationalRank = ranks[2].innerText.replace("#", "");
+                        this.divisionRank = ranks[1].innerText.replace("#", "");
+                    }else{
+                        this.nationalRank = ranks[1].innerText.replace("#", "");
+                        this.divisionRank = "";
+                    }
+                }
+
+                this.nationalRank = this.parseTextFromSelectorLast(this.infoBodyElement, ".Text__StyledText-jknly0-0.dAwCHf").replace("#", "");
+
 
                 this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
 
@@ -264,13 +283,27 @@ layout: raw-html
                 }
             }
 
-            parseTextFromSelector(bodyElement, selector){
+            parseTextFromSelectorLast(bodyElement, selector){
                 let found = bodyElement.find(selector);
                 if(found.length > 0){
-                    return found[0].innerText;
+                    return found[found.length - 1].innerText;
                 }
                 return "";
             }
+
+            parseTextFromSelectorIndex(bodyElement, selector, index){
+                let found = bodyElement.find(selector);
+                if(found.length > index){
+                    return found[index].innerText;
+                }
+                return "";
+            }
+
+            parseTextFromSelector(bodyElement, selector){
+                return this.parseTextFromSelectorIndex(bodyElement, selector, 0);
+            }
+
+            parseText
         }
 
         class Game{
