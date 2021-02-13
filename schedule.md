@@ -218,7 +218,8 @@ layout: raw-html
 
                 this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, ".Text__StyledText-jknly0-0.PiNEz")
 
-                let ranks = this.infoBodyElement.find(".Text__StyledText-jknly0-0.dAwCHf");
+                /*
+                let ranks = this.infoBodyElement.find(".Text__StyledText-jknly0-0.iMvTHW");
                 if(ranks.length > 1){
                     this.stateRank = ranks[0].innerText.replace("#", "");
 
@@ -230,9 +231,26 @@ layout: raw-html
                         this.divisionRank = "";
                     }
                 }
+                */
 
-                this.nationalRank = this.parseTextFromSelectorLast(this.infoBodyElement, ".Text__StyledText-jknly0-0.dAwCHf").replace("#", "");
+                var xpath = "//span[contains(text(),'#')]";
+                var xpathResults = this.infoDoc.evaluate(xpath, this.infoDoc, null, XPathResult.ANY_TYPE, null)
+                let rankNumbers = [];
+                var rankNode;
+                while(rankNode = xpathResults.iterateNext()){
+                    rankNumbers.push(rankNode.innerText.replace("#",""));
+                }
+                if(rankNumbers.length > 1){
+                    this.stateRank = rankNumbers[0];
 
+                    if(rankNumbers.length > 2){
+                        this.nationalRank = rankNumbers[2];
+                        this.divisionRank = rankNumbers[1];
+                    }else{
+                        this.nationalRank = rankNumbers[1];
+                        this.divisionRank = "";
+                    }
+                }
 
                 this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
 
