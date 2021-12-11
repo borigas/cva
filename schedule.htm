@@ -247,15 +247,14 @@ layout: raw-html
                 while(rankNode = xpathResults.iterateNext()){
                     rankNumbers.push(rankNode.innerText.replace("#",""));
                 }
-                if(rankNumbers.length > 1){
-                    this.stateRank = rankNumbers[0];
-
-                    if(rankNumbers.length > 2){
+                if(rankNumbers.length >= 1){
+                    rankNumbers = rankNumbers.sort();
+                    this.divisionRank = rankNumbers[0];
+                    if(rankNumbers.length >= 2){
+                        this.stateRank = rankNumbers[1];
+                    }
+                    if(rankNumbers.length >= 3){
                         this.nationalRank = rankNumbers[2];
-                        this.divisionRank = rankNumbers[1];
-                    }else{
-                        this.nationalRank = rankNumbers[1];
-                        this.divisionRank = "";
                     }
                 }
 
