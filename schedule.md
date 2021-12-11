@@ -68,6 +68,9 @@ layout: raw-html
                         </li>
                             <a data-bind="attr: {href: girlsTeamUrl}, text: 'Girls'"></a>
                         </li>
+                        <li>
+                            <a data-bind="attr: {href: maxPrepsUrl}">MaxPreps</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -143,6 +146,10 @@ layout: raw-html
             girlsTeamUrl = "";
             boysTeamUrl = "";
 
+            get maxPrepsUrl(){
+                return `https://www.maxpreps.com/high-schools/${this.maxPrepsTeamId}/${this.season}/schedule.htm`;
+            }
+
             get winPercentage() {
                 let split = this.winLossRecord.split("-");
                 if(split.length == 2){
@@ -187,7 +194,7 @@ layout: raw-html
             async load(){
                 try
                 {
-                    this.infoUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/info.htm`;
+                    this.infoUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/home.htm`;
                     let infoPromise = await this.request({url: this.infoUrl});
                     let infoResponse = await infoPromise;
 
@@ -216,7 +223,7 @@ layout: raw-html
                     this.stateClass = rankHeadings[1].innerText.replace(" Division", "");
                 }
 
-                this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, ".Text__StyledText-jknly0-0.PiNEz")
+                this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, ".StyledText-sc-yyz0ad-0.ltKDV.f18_bold")
 
                 /*
                 let ranks = this.infoBodyElement.find(".Text__StyledText-jknly0-0.iMvTHW");
@@ -240,15 +247,14 @@ layout: raw-html
                 while(rankNode = xpathResults.iterateNext()){
                     rankNumbers.push(rankNode.innerText.replace("#",""));
                 }
-                if(rankNumbers.length > 1){
-                    this.stateRank = rankNumbers[0];
-
-                    if(rankNumbers.length > 2){
+                if(rankNumbers.length >= 1){
+                    rankNumbers = rankNumbers.sort();
+                    this.divisionRank = rankNumbers[0];
+                    if(rankNumbers.length >= 2){
+                        this.stateRank = rankNumbers[1];
+                    }
+                    if(rankNumbers.length >= 3){
                         this.nationalRank = rankNumbers[2];
-                        this.divisionRank = rankNumbers[1];
-                    }else{
-                        this.nationalRank = rankNumbers[1];
-                        this.divisionRank = "";
                     }
                 }
 
