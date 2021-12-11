@@ -194,7 +194,7 @@ layout: raw-html
             async load(){
                 try
                 {
-                    this.infoUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/info.htm`;
+                    this.infoUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/home.htm`;
                     let infoPromise = await this.request({url: this.infoUrl});
                     let infoResponse = await infoPromise;
 
