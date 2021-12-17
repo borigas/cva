@@ -218,27 +218,25 @@ layout: raw-html
                 }
 
                 this.stateClass = "";
-                let rankHeadings = this.infoBodyElement.find(".Anchor__StyledAnchor-sc-1fyvlgd-0.gMjAj");
-                if(rankHeadings.length == 3){
-                    this.stateClass = rankHeadings[1].innerText.replace(" Division", "");
+                let leagueLink = this.infoDoc.querySelector("a[href*='/league/']");
+                if(leagueLink != null && leagueLink.innerText != "Conference"){
+                    this.stateClass = leagueLink.innerText;
                 }
 
                 this.winLossRecord = this.parseTextFromSelector(this.infoBodyElement, ".StyledText-sc-yyz0ad-0.ltKDV.f18_bold")
 
-                /*
-                let ranks = this.infoBodyElement.find(".Text__StyledText-jknly0-0.iMvTHW");
-                if(ranks.length > 1){
-                    this.stateRank = ranks[0].innerText.replace("#", "");
+                let stateLink = this.infoDoc.querySelector("a[href*='/state/']");
+                if(stateLink != null && stateLink.nextSibling != null){
+                    this.stateRank = stateLink.nextSibling.innerText.replace("#", "");
+                }
 
-                    if(ranks.length > 2){
-                        this.nationalRank = ranks[2].innerText.replace("#", "");
-                        this.divisionRank = ranks[1].innerText.replace("#", "");
-                    }else{
-                        this.nationalRank = ranks[1].innerText.replace("#", "");
-                        this.divisionRank = "";
+                let divisionLink = this.infoDoc.querySelector("a[href*='/division/']");
+                if(divisionLink != null && divisionLink.nextSibling != null){
+                    this.divisionRank = divisionLink.nextSibling.innerText.replace("#", "");
+                    if(this.stateClass == ""){
+                        this.stateClass = divisionLink.innerText.replace(" Division", "");
                     }
                 }
-                */
 
                 var xpath = "//span[contains(text(),'#')]";
                 var xpathResults = this.infoDoc.evaluate(xpath, this.infoDoc, null, XPathResult.ANY_TYPE, null)
@@ -247,15 +245,9 @@ layout: raw-html
                 while(rankNode = xpathResults.iterateNext()){
                     rankNumbers.push(parseInt(rankNode.innerText.replace("#","")));
                 }
-                if(rankNumbers.length == 1){
-                    this.stateRank = rankNumbers[0];
-                }else if(rankNumbers.length >= 2){
-                    rankNumbers = rankNumbers.sort((a, b) => a - b);
-                    this.divisionRank = rankNumbers[0];
-                    this.stateRank = rankNumbers[1];
-                    if(rankNumbers.length > 2){
-                        this.nationalRank = rankNumbers[2];
-                    }
+                if(rankNumbers.length >= 3){
+                    rankNumbers = rankNumbers.sort((a, b) => b - a);
+                    this.nationalRank = rankNumbers[0];
                 }
 
                 this.statsUrl = `https://preps.origas.org/high-schools/${this.maxPrepsTeamId}/${this.season}/stats.htm`;
