@@ -245,15 +245,15 @@ layout: raw-html
                 let rankNumbers = [];
                 var rankNode;
                 while(rankNode = xpathResults.iterateNext()){
-                    rankNumbers.push(rankNode.innerText.replace("#",""));
+                    rankNumbers.push(parseInt(rankNode.innerText.replace("#","")));
                 }
-                if(rankNumbers.length >= 1){
-                    rankNumbers = rankNumbers.sort();
+                if(rankNumbers.length == 1){
+                    this.stateRank = rankNumbers[0];
+                }else if(rankNumbers.length >= 2){
+                    rankNumbers = rankNumbers.sort((a, b) => a - b);
                     this.divisionRank = rankNumbers[0];
-                    if(rankNumbers.length >= 2){
-                        this.stateRank = rankNumbers[1];
-                    }
-                    if(rankNumbers.length >= 3){
+                    this.stateRank = rankNumbers[1];
+                    if(rankNumbers.length > 2){
                         this.nationalRank = rankNumbers[2];
                     }
                 }
